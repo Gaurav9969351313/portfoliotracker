@@ -51,25 +51,23 @@ def yfinancestocktracker(heading, symbols_list):
         result_df[symbol] = percentage_difference
     
     result_df.loc['% Change (5 Days)'] = result_df.sum()
-    st.markdown(heading)
+    st.markdown("### " + heading)
     st.dataframe(result_df)
 
 def main():
-    symbols_list = ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS']
-    yfinancestocktracker("### ETF Tracker % Change", symbols_list=symbols_list)
-    time.sleep(10)
     list = {
+        "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
         "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
-        "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
+        "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'POLYCAB.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
         "Monopoly Small and Midcap": ['SULA.NS', 'ASAHIINDIA.NS', 'MAZDOCK.NS', 'PRAJIND.NS', 'BALKRISIND.NS', 'HINDZINC.NS', 'HINDCOPPER.NS'],
         "Monopoly Others": ['SUPREMEIND.NS', 'ANGELONE.NS', 'CENTURYPLY.NS', 'ASTRAL.NS'],
         "EV": ['BHEL.NS', 'JBMA.NS', 'OLECTRA.NS', 'M&M.NS', 'TATAMTRDVR.NS', 'DIXON.NS'],
-        "Defence": ['PARAS.NS', 'HAL.NS', 'MAZDOCK.NS'],
         "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
         "Speciality Chemicals": ['NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
         "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'],
         "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
         "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
+        "Defence": ['PARAS.NS', 'HAL.NS', 'MAZDOCK.NS'],
         "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS']
     }
     
