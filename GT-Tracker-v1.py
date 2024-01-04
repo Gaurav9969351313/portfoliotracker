@@ -57,9 +57,7 @@ def yfinancestocktracker(heading, symbols_list):
 def main():
     symbols_list = ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS']
     yfinancestocktracker("### ETF Tracker % Change", symbols_list=symbols_list)
-    time.sleep(3)
-    
-    
+    time.sleep(10)
     list = {
         "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', 'NIFTYSMLCAP250.NS', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL'
         "Monopoly": ['BSE.NS', 'HAL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
@@ -75,7 +73,7 @@ def main():
     
     for key,value in list.items():
         yfinancestocktracker(key, symbols_list=value)
-        time.sleep(3)
+        time.sleep(10)
     # for x in MF_SCHEME_CODE:
     #     dfC = getHistoricalMFNavData(x["schemecode"])
     #     dfC['nav'] = dfC['nav'].astype(float)
