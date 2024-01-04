@@ -61,7 +61,7 @@ def main():
     
     
     list = {
-        "Indices": ['^INDIAVIX','^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', 'NIFTYSMLCAP250.NS', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL'
+        "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', 'NIFTYSMLCAP250.NS', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL'
         "Monopoly": ['BSE.NS', 'HAL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
         "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'], # , 'BLUESTAR.NS'
         "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
