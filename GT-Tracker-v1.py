@@ -55,32 +55,34 @@ def yfinancestocktracker(heading, symbols_list):
     st.dataframe(result_df)
 
 def main():
-    list = {
-        "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
-        "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
-        "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'POLYCAB.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
-        "Monopoly Small and Midcap": ['SULA.NS', 'ASAHIINDIA.NS', 'MAZDOCK.NS', 'PRAJIND.NS', 'BALKRISIND.NS', 'HINDZINC.NS', 'HINDCOPPER.NS'],
-        "Monopoly Others": ['SUPREMEIND.NS', 'ANGELONE.NS', 'CENTURYPLY.NS', 'ASTRAL.NS'],
-        "EV": ['BHEL.NS', 'JBMA.NS', 'OLECTRA.NS', 'M&M.NS', 'TATAMTRDVR.NS', 'DIXON.NS'],
-        "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
-        "Speciality Chemicals": ['GALAXYSURF.NS','NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
-        "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'],
-        "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
-        "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
-        "Defence": ['PARAS.NS', 'HAL.NS', 'MAZDOCK.NS'],
-        "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS']
-    }
+    tab1, tab2 = st.tabs(["Stocks", "Mutual Funds"])
+    with tab1:
+        list = {
+            "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
+            "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
+            "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'POLYCAB.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
+            "Monopoly Small and Midcap": ['SULA.NS', 'ASAHIINDIA.NS', 'MAZDOCK.NS', 'PRAJIND.NS', 'BALKRISIND.NS', 'HINDZINC.NS', 'HINDCOPPER.NS'],
+            "Monopoly Others": ['SUPREMEIND.NS', 'ANGELONE.NS', 'CENTURYPLY.NS', 'ASTRAL.NS'],
+            "EV": ['BHEL.NS', 'JBMA.NS', 'OLECTRA.NS', 'M&M.NS', 'TATAMTRDVR.NS', 'DIXON.NS'],
+            "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
+            "Speciality Chemicals": ['GALAXYSURF.NS','NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
+            "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'],
+            "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
+            "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
+            "Defence": ['PARAS.NS', 'HAL.NS', 'MAZDOCK.NS'],
+            "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS']
+        }
     
-    for key,value in list.items():
-        yfinancestocktracker(key, symbols_list=value)
-        time.sleep(10)
-    # for x in MF_SCHEME_CODE:
-    #     dfC = getHistoricalMFNavData(x["schemecode"])
-    #     dfC['nav'] = dfC['nav'].astype(float)
-    #     st.markdown("### " + x["name"] + " [" + str(dfC["nav"].mean())+ "]")
-    #     st.table(dfC)
-    
-
+        for key,value in list.items():
+            yfinancestocktracker(key, symbols_list=value)
+            time.sleep(10)
+            
+    with tab2:
+        for x in MF_SCHEME_CODE:
+            dfC = getHistoricalMFNavData(x["schemecode"])
+            dfC['nav'] = dfC['nav'].astype(float)
+            st.markdown("### " + x["name"] + " [" + str(dfC["nav"].mean())+ "]")
+            st.table(dfC)
     
 if __name__ == "__main__":
     main()
