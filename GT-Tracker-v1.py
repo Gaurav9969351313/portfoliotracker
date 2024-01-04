@@ -62,14 +62,15 @@ def main():
         "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
         "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
         "Monopoly Small and Midcap": ['SULA.NS', 'ASAHIINDIA.NS', 'MAZDOCK.NS', 'PRAJIND.NS', 'BALKRISIND.NS', 'HINDZINC.NS', 'HINDCOPPER.NS'],
-        "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'], # , 'BLUESTAR.NS'
-        "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
-        "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
-        "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
-        "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS'],
+        "Monopoly Others": ['SUPREMEIND.NS', 'ANGELONE.NS', 'CENTURYPLY.NS', 'ASTRAL.NS'],
         "EV": ['BHEL.NS', 'JBMA.NS', 'OLECTRA.NS', 'M&M.NS', 'TATAMTRDVR.NS', 'DIXON.NS'],
         "Defence": ['PARAS.NS', 'HAL.NS', 'MAZDOCK.NS'],
-        "SpecialityChemicals": ['NAVINFLUOR.NS', 'RADICO.NS' ]
+        "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
+        "Speciality Chemicals": ['NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
+        "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'],
+        "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
+        "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
+        "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS']
     }
     
     for key,value in list.items():
