@@ -25,7 +25,7 @@ MF_SCHEME_CODE = [
 ]
 
 def getHistoricalMFNavData(schemeCode):
-    url = "https://api.mfapi.in/mf/"+str(schemeCode) 
+    url = "https://api.mfapi.in/mf/"+str(schemeCode)
     response = requests.get(url)
     if response.status_code == requests.codes.ok:
         data = response.json()
@@ -83,7 +83,7 @@ def main():
             dfC['nav'] = dfC['nav'].astype(float)
             st.markdown("### " + x["name"] + " [" + str(dfC["nav"].mean())+ "]")
             st.table(dfC)
-            time.sleep(3)
+            time.sleep(10)
     
 if __name__ == "__main__":
     main()
