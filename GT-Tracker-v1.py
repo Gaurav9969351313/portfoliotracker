@@ -83,6 +83,7 @@ def main():
             dfC['nav'] = dfC['nav'].astype(float)
             st.markdown("### " + x["name"] + " [" + str(dfC["nav"].mean())+ "]")
             st.table(dfC)
+            time.sleep(3)
     
 if __name__ == "__main__":
     main()
