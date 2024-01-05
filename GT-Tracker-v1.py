@@ -61,7 +61,7 @@ def main():
     
         for key,value in list.items():
             yfinancestocktracker(key, symbols_list=value)
-            time.sleep(10)
+            time.sleep(7)
             
     with tab2:
         
