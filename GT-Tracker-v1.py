@@ -8,23 +8,8 @@ import yfinance as yf
 
 st.set_page_config(layout="wide")
 
-AVERAGE_FACTOR = 100
-
-MF_SCHEME_CODE = [
-    {"schemecode": 122639, "name": "Parag Parekh Flexi Cap Regular"},
-    {"schemecode": 125350, "name": "Axis Small Cap Fund - Regular Plan - Growth"},
-    {"schemecode": 102875, "name": "Kotak-Small Cap Fund - Growth"},
-    {"schemecode": 135799, "name": "TATA Digital India Fund Regular Plan"},
-    {"schemecode": 112090, "name": "Kotak Flexicap Fund Regular"},
-    {"schemecode": 120841, "name": "quant Mid Cap Fund - Growth Option - Direct"},
-    {"schemecode": 113177, "name": "Nippon India Small Cap Fund - Growth Plan - Growth Option"},
-    {"schemecode": 146127, "name": "CANARA ROBECO SMALL CAP FUND - REGULAR PLAN - GROWTH OPTION"},
-    {"schemecode": 146193, "name": "Edelweiss Small Cap Fund - Regular Plan - Growth" },
-    {"schemecode": 102594, "name": "ICICI Prudential Value Discovery Fund - Growth" }
-    
-]
-
 def getHistoricalMFNavData(schemeCode):
+    AVERAGE_FACTOR = 10
     url = "https://api.mfapi.in/mf/"+str(schemeCode)
     response = requests.get(url)
     if response.status_code == requests.codes.ok:
@@ -78,6 +63,21 @@ def main():
             time.sleep(10)
             
     with tab2:
+        
+
+        MF_SCHEME_CODE = [
+            {"schemecode": 122639, "name": "Parag Parekh Flexi Cap Regular"},
+            {"schemecode": 125350, "name": "Axis Small Cap Fund - Regular Plan - Growth"},
+            {"schemecode": 102875, "name": "Kotak-Small Cap Fund - Growth"},
+            {"schemecode": 135799, "name": "TATA Digital India Fund Regular Plan"},
+            {"schemecode": 112090, "name": "Kotak Flexicap Fund Regular"},
+            {"schemecode": 120841, "name": "quant Mid Cap Fund - Growth Option - Direct"},
+            {"schemecode": 113177, "name": "Nippon India Small Cap Fund - Growth Plan - Growth Option"},
+            {"schemecode": 146127, "name": "CANARA ROBECO SMALL CAP FUND - REGULAR PLAN - GROWTH OPTION"},
+            {"schemecode": 146193, "name": "Edelweiss Small Cap Fund - Regular Plan - Growth" },
+            {"schemecode": 102594, "name": "ICICI Prudential Value Discovery Fund - Growth" }
+            
+        ]
         for x in MF_SCHEME_CODE:
             dfC = getHistoricalMFNavData(x["schemecode"])
             dfC['nav'] = dfC['nav'].astype(float)
