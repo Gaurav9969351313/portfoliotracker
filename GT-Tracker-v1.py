@@ -78,8 +78,6 @@ def getHistoricalMFNavData(schemeCode):
         return None
 
 def get_stock_data_and_percentage_difference(symbol):
-    # end_date = datetime.today().strftime('%Y-%m-%d')
-    # start_date = (datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d')
     stock_data = yf.download(symbol, period='7d', interval='1d')
     close_prices = stock_data['Close']
     percentage_difference = (close_prices.pct_change() * 100).dropna()
@@ -95,11 +93,21 @@ def yfinancestocktracker(heading, symbols_list):
     result_df.loc['% Change (5 Days)'] = result_df.sum()
     st.markdown("### " + heading)
     st.dataframe(result_df)
+    
+def getAvgVolume(symbol_list, noofdays):
+    end_date = datetime.today().strftime('%Y-%m-%d')
+    start_date = (datetime.today() - timedelta(days=noofdays)).strftime('%Y-%m-%d')
+    stock_data = yf.download(symbol_list, start=start_date, end=end_date)
+    volume_df = stock_data["Volume"]
+    average_volume_df = volume_df.mean().to_frame()
+    average_volume_df.columns = [f"{noofdays}_Days_Avg_volume"]
+    average_volume_df = average_volume_df.rename_axis('Symbol').reset_index()
+    return average_volume_df
 
 def main():
     tab1, tab2, tab3 = st.tabs(["Stocks",  "Reports", "Mutual Funds"])
     with tab1:
-        list = {
+        symbol_list = {
             "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
             "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
             "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'POLYCAB.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
@@ -116,9 +124,46 @@ def main():
             "NBFC": ['BAJFINANCE.NS', 'BAJAJFINSV.NS']
         }
     
-        for key,value in list.items():
-            yfinancestocktracker(key, symbols_list=value)
-            time.sleep(3)
+        # for key,value in list.items():
+        #     yfinancestocktracker(key, symbols_list=value)
+        #     time.sleep(3)
+        
+        for key, value in symbol_list.items():
+            stock_data_all = yf.download(value, period='7d', interval='1d')
+            close_prices = stock_data_all['Close']
+            close_prices = close_prices.reset_index()
+            percentage_difference = (close_prices.iloc[:, 1:].pct_change() * 100).dropna()
+            percentage_difference.loc['% Change (5 Days)'] = percentage_difference.sum()
+            percentage_difference["Date"] = close_prices["Date"]
+            date_column = percentage_difference.pop('Date')
+            percentage_difference.insert(0, 'Date', date_column)
+            st.markdown("### " + key)
+            st.dataframe(percentage_difference)
+            time.sleep(2)
+            
+        signals = []
+        for key, value in symbol_list.items():
+            volume_15_day_avg_df = getAvgVolume(value, 15)
+            volume_today_df = getAvgVolume(value, 1)
+
+            volume_df = pd.merge(volume_today_df, volume_15_day_avg_df, on='Symbol')
+
+            volume_df.loc[volume_df['1_Days_Avg_volume'] < volume_df['15_Days_Avg_volume'], 'signal'] = ''
+            volume_df.loc[volume_df['1_Days_Avg_volume'] > volume_df['15_Days_Avg_volume'], 'signal'] = 'BUY'
+
+            volume_df = volume_df[volume_df["signal"] == "BUY"]
+            volume_df['PERC_CHANGE'] = ((volume_df['1_Days_Avg_volume'] - volume_df['15_Days_Avg_volume'])/volume_df['1_Days_Avg_volume'])*100
+            
+            signals.append(volume_df.to_dict(orient='records'))
+
+        signals = [item for sublist in signals for item in sublist]
+        signals_df = pd.DataFrame(signals)
+        signals_df = signals_df.sort_values(by='PERC_CHANGE', ascending=False)
+        
+        st.markdown("#### BUY Signals (Comapred last 15 days Volume With Todays Volume)")
+        st.dataframe(signals_df)
+        
+                            
     with tab2:
         print("Inside reports")
         col1,col2,col3 = st.columns(3)
