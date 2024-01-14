@@ -1,12 +1,69 @@
 import time
 from datetime import datetime, timedelta
 
+import nselib
 import pandas as pd
 import requests
 import streamlit as st
 import yfinance as yf
+from nselib import capital_market, derivatives
 
 st.set_page_config(layout="wide")
+
+header = {
+    "Connection": "keep-alive",
+    "Cache-Control": "max-age=0",
+    "DNT": "1",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/111.0.0.0 Safari/537.36",
+    "Sec-Fetch-User": "?1", "Accept": "*/*", "Sec-Fetch-Site": "none", "Sec-Fetch-Mode": "navigate",
+    "Accept-Encoding": "gzip, deflate, br", "Accept-Language": "en-US,en;q=0.9,hi;q=0.8"
+    }
+
+def nse_urlfetch(url):
+    r_session = requests.session()
+    nse_live = r_session.get("http://nseindia.com", headers=header)
+    return r_session.get(url, headers=header)
+
+def get_previous_working_day():
+    today = datetime.now()
+
+    one_day = timedelta(days=1)
+    previous_day = today - one_day
+
+    while previous_day.weekday() in [5, 6]:  # 5 is Saturday, 6 is Sunday
+        previous_day -= one_day
+
+    formatted_date = previous_day.strftime("%d-%m-%Y")
+    
+    return formatted_date
+
+def fii_dii_trading_activity():
+    """
+    FII and DII trading activity of the day in data frame
+    :return: pd.DataFrame
+    """
+    url = "https://www.nseindia.com/api/fiidiiTradeReact"
+    data_json = nse_urlfetch(url).json()
+    data_df = pd.DataFrame(data_json)
+    return data_df
+
+def getNifty500DelPerc():
+    bhav_del = capital_market.bhav_copy_with_delivery(get_previous_working_day())
+    NIFTY_500_df = pd.read_csv("https://archives.nseindia.com/content/indices/ind_nifty500list.csv")
+    NIFTY_500_data_df = NIFTY_500_df[['Company Name', 'Industry', 'Symbol']]
+
+    NIFTY_500_data_df.columns = NIFTY_500_data_df.columns.str.upper()
+
+    merged_df = pd.merge(NIFTY_500_data_df, bhav_del, on='SYMBOL', how='left')
+    merged_df['DELIV_PER'] = pd.to_numeric(merged_df['DELIV_PER'], errors='coerce')
+
+    df_sorted = merged_df.sort_values(by='DELIV_PER', ascending=False)
+    filtered_df = df_sorted[df_sorted['SERIES'] == 'EQ']
+
+    filtered_df = filtered_df[["SYMBOL", "CLOSE_PRICE", "PREV_CLOSE", "DELIV_PER"]]
+    return filtered_df
 
 def getHistoricalMFNavData(schemeCode):
     AVERAGE_FACTOR = 10
@@ -40,7 +97,7 @@ def yfinancestocktracker(heading, symbols_list):
     st.dataframe(result_df)
 
 def main():
-    tab1, tab2 = st.tabs(["Stocks", "Mutual Funds"])
+    tab1, tab2, tab3 = st.tabs(["Stocks",  "Reports", "Mutual Funds"])
     with tab1:
         list = {
             "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
@@ -51,7 +108,7 @@ def main():
             "EV": ['BHEL.NS', 'JBMA.NS', 'OLECTRA.NS', 'M&M.NS', 'TATAMTRDVR.NS', 'DIXON.NS'],
             "IT": ['WIPRO.NS', 'HCLTECH.NS', 'LTIM.NS','TATAELXSI.NS', 'INFY.NS', 'TCS.NS'],
             "Hospitals": ['NH.NS', 'FORTIS.NS'],
-            "Speciality Chemicals": ['GALAXYSURF.NS','NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
+            "Speciality Chemicals": ['SRF.NS', 'GALAXYSURF.NS','NAVINFLUOR.NS', 'RADICO.NS', 'FLUOROCHEM.NS', 'NAVINFLUOR.NS', 'ALKYLAMINE.NS', 'BALAMINES.NS', 'PIIND.NS' ],
             "Consumer": ['NESTLEIND.NS', 'VBL.NS', 'POLYCAB.NS', 'ITC.NS', 'TATACONSUM.NS', 'GODREJCP.NS', 'HINDUNILVR.NS', 'TITAN.NS', 'AMBER.NS'],
             "Bank": ['SBIN.NS', 'PNB.NS', 'HDFCBANK.NS'],
             "PSU" : ['GAIL.NS', 'MGL.NS', 'IGL.NS', 'HINDCOPPER.NS', 'NATIONALUM.NS', 'COALINDIA.NS'],
@@ -61,11 +118,40 @@ def main():
     
         for key,value in list.items():
             yfinancestocktracker(key, symbols_list=value)
-            time.sleep(7)
-            
+            time.sleep(3)
     with tab2:
+        print("Inside reports")
+        col1,col2,col3 = st.columns(3)
+        with col1:
+            st.markdown("#### India VIX")
+            vix_data = capital_market.india_vix_data(period='1W')
+            vix_data = vix_data[["TIMESTAMP", "INDEX_NAME", "VIX_PTS_CHG", "VIX_PERC_CHG" ]]
+            st.dataframe(vix_data)
+        with col2:
+            st.markdown("#### FII / DII Activity")
+            fii_dii_data = fii_dii_trading_activity()
+            st.dataframe(fii_dii_data)
+        with col3:
+            st.markdown("#### Nifty 500 EQ Series Percentage Delivery")
+            nifty_50_perc_del = getNifty500DelPerc()
+            st.dataframe(nifty_50_perc_del)
         
+        
+        st.markdown("#### FII Stats")
+        derivatives_fii_stats = derivatives.fii_derivatives_statistics(get_previous_working_day())
+        derivatives_fii_stats = derivatives_fii_stats[["fii_derivatives", "buy_value_in_Cr" ,"sell_value_in_Cr"]]
+        st.dataframe(derivatives_fii_stats)
 
+        st.markdown("#### Participant Wise Trading Volume")
+        part_trade_volume = derivatives.participant_wise_trading_volume(get_previous_working_day())
+        st.dataframe(part_trade_volume)
+
+        st.markdown("#### Participant Wise Open Interest")
+        part_open_interest = derivatives.participant_wise_open_interest(get_previous_working_day())
+        st.dataframe(part_open_interest)
+        
+    with tab3:
+        
         MF_SCHEME_CODE = [
             {"schemecode": 122639, "name": "Parag Parekh Flexi Cap Regular"},
             {"schemecode": 125350, "name": "Axis Small Cap Fund - Regular Plan - Growth"},
@@ -84,7 +170,10 @@ def main():
             dfC['nav'] = dfC['nav'].astype(float)
             st.markdown("### " + x["name"] + " [" + str(dfC["nav"].mean())+ "]")
             st.table(dfC)
-            time.sleep(10)
+            time.sleep(3)
+            
+    
+        
     
 if __name__ == "__main__":
     main()
