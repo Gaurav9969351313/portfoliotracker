@@ -108,7 +108,8 @@ def main():
     tab1, tab2, tab3 = st.tabs(["Stocks",  "Reports", "Mutual Funds"])
     with tab1:
         symbol_list = {
-            "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'ITBEES.NS', 'MON100.NS', 'ICICIB22.NS', 'GOLDBEES.NS'],
+            "Priority ETF": ['ALPHA.NS', 'MON100.NS', 'MAFANG.NS', 'MOVALUE.NS', 'ITBEES.NS', 'MOM100', 'MIDSMALL.NS', 'ICICIB22.NS', 'SETFNN50.NS', 'MID150BEES.NS' ],
+            "ETF": ['SILVERBEES.NS', 'BANKBEES.NS', 'BANKETF.NS', 'GOLDBEES.NS'],
             "Indices": ['^NSEI', '^NSEBANK', '^BSESN', '^NSEMDCP50', '^CNXIT', '^DJI' ], # '^CNXMID', '^CNXSMALL', 'NIFTYSMLCAP250.NS'
             "Monopoly": ['BSE.NS', 'HAL.NS', 'MCX.NS', 'POLYCAB.NS', 'CAMS.NS', 'CDSL.NS', 'ASIANPAINT.NS', 'PIDILITIND.NS',  'DMART.NS', 'IRCTC.NS', 'IRFC.NS' ],
             "Monopoly Small and Midcap": ['SULA.NS', 'ASAHIINDIA.NS', 'MAZDOCK.NS', 'PRAJIND.NS', 'BALKRISIND.NS', 'HINDZINC.NS', 'HINDCOPPER.NS'],
