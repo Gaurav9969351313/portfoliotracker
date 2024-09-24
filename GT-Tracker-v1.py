@@ -183,18 +183,18 @@ def main():
             st.dataframe(nifty_50_perc_del)
         
         
-        st.markdown("#### FII Stats")
-        derivatives_fii_stats = derivatives.fii_derivatives_statistics(get_previous_working_day())
-        derivatives_fii_stats = derivatives_fii_stats[["fii_derivatives", "buy_value_in_Cr" ,"sell_value_in_Cr"]]
-        st.dataframe(derivatives_fii_stats)
+        # st.markdown("#### FII Stats")
+        # derivatives_fii_stats = derivatives.fii_derivatives_statistics(get_previous_working_day())
+        # derivatives_fii_stats = derivatives_fii_stats[["fii_derivatives", "buy_value_in_Cr" ,"sell_value_in_Cr"]]
+        # st.dataframe(derivatives_fii_stats)
 
-        st.markdown("#### Participant Wise Trading Volume")
-        part_trade_volume = derivatives.participant_wise_trading_volume(get_previous_working_day())
-        st.dataframe(part_trade_volume)
+        # st.markdown("#### Participant Wise Trading Volume")
+        # part_trade_volume = derivatives.participant_wise_trading_volume(get_previous_working_day())
+        # st.dataframe(part_trade_volume)
 
-        st.markdown("#### Participant Wise Open Interest")
-        part_open_interest = derivatives.participant_wise_open_interest(get_previous_working_day())
-        st.dataframe(part_open_interest)
+        # st.markdown("#### Participant Wise Open Interest")
+        # part_open_interest = derivatives.participant_wise_open_interest(get_previous_working_day())
+        # st.dataframe(part_open_interest)
         
     with tab3:
         
