@@ -1,4 +1,4 @@
-import time
+,import time
 from datetime import datetime, timedelta
 
 import nselib
@@ -208,7 +208,10 @@ def main():
             {"schemecode": 113177, "name": "Nippon India Small Cap Fund - Growth Plan - Growth Option"},
             {"schemecode": 146127, "name": "CANARA ROBECO SMALL CAP FUND - REGULAR PLAN - GROWTH OPTION"},
             {"schemecode": 146193, "name": "Edelweiss Small Cap Fund - Regular Plan - Growth" },
-            {"schemecode": 102594, "name": "ICICI Prudential Value Discovery Fund - Growth" }
+            {"schemecode": 102594, "name": "ICICI Prudential Value Discovery Fund - Growth" },
+            {"schemecode": 152712, "name": "Motilal Oswal Defence Index Fund Direct Plan Growth"},
+            {"schemecode": 100119, "name": "HDFC Balanced Advantage Fund - Growth Plan"},
+            {"schemecode": 102020, "name": "Baroda BNP Paribas MULTI CAP FUND"}
             
         ]
         for x in MF_SCHEME_CODE:
