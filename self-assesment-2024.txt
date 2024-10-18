@@ -1,0 +1,30 @@
+• Database Security Enhancements: Successfully implemented the password rotation process for production databases, delivering continuous support to ensure uptime and continuity for all DMM applications across all lines of business like GA, OC and BW, and received recognition from the Application Manager.
+• DMM Release Automation: Collaborated with an intern on release automation. We achieved one-click deployment through GitLab pipelines for Ansible deployments and Liquibase changeset deployments. This significantly reduced overall deployment time. And for this effort we have received praise and recognition from application manager and the overall team.
+• MQ TLS Implementation: Led the implementation of MQ TLS for Grand Central and released these changes into the production environment.
+• DMM Batch MT569 Flow: unfolded the unknowns in mt569 flow and implemented a business requirement which was requested by ops users. 
+• Support for COT Team: Provided additional assistance with the MQ TLS implementation to the COT team, ensuring a smooth integration process.
+• Collaboration with CFH Team: Offered an technical help to the CFH team to resolve their GitLab pipeline issues, which led to recognition from Yin Jilei for my contributions.
+• BW Replat forming: Successfully implemented BW replat forming for Grand Central and facilitated its deployment in the production environment.
+• Ansible Migration: Migrated all DMM components to the Ansible Automation platform in the lower region, enhancing deployment efficiency.
+• Portal Maintenance: Actively managed and maintained both internal and external portals to ensure optimal performance and user experience.
+• Vulnerability Management: I have promptly applied security / code patches for the known static and dynamic vulnerabilities before the TTR date breaches. Focused on developing and maintaining vulnerability-free code for Infra Services (DS + DIS + TIS + FTG) + Internal Portal + External Portal + Grand Central.
+• Team Collaboration: Engaged in active collaboration within the team, fostering a cooperative work environment and contributing to overall project success. Also, shared a required information / knowledge wherever it is required. 
+
+I am getting regular feedback from my manager through 1 to 1 meetings. Which helped me quickly grasp the things and ability to see a pro approach. 
+Efficiently using AI tools like Git - Copilot, Perplexity Ai, ChatGPT where ever its applicable.
+Always providing all the necessary updates in daily standup meetings in order to adhere standard agile practices.
+Also, focusing on Self Improvement by participating technical trainings like Secure Coding Practices, Java Guilds Udemy Courses and Dev Con.
+
+Power Our Culture
+Commitment to Collaboration:
+This year, I’ve witnessed our culture of collaboration truly come to life through various projects and the Platform Operating Model. Working closely with my colleagues has highlighted the critical role of teamwork in our success. I value how our leadership fosters an environment of open communication and shared objectives, aligning perfectly with the core principles of this model. This collective approach not only strengthens our outcomes but also enhances our relationships, making us a more cohesive and effective team. I look forward to continuing to build on this collaborative spirit as we tackle new challenges together.
+
+Ownership of Changes:
+I believe that ownership is a key driver of success in our projects. This year, I took the initiative to lead several critical changes within our components, which not only streamlined our processes but also empowered our team to take responsibility for their contributions. This sense of ownership has strengthened our accountability and enhanced the overall quality of our work.
+
+Embodying a Strong Risk Culture
+Proactive Risk Identification: This year, I am making it a priority to actively identify potential risks in our projects early on. By fostering an open dialogue about these challenges in a team, I believe we are creating a more transparent environment where everyone felt empowered to voice concerns in the platform operating model. This proactive approach has helped us mitigate issues before they escalated.
+
+Safe Agile Practices:
+I actively participated in our iteration planning sessions, emphasizing the importance of risk management. By questioning and highlighting potential risks during these discussions, we cultivated a culture of shared responsibility and transparency, which has led to more informed decision-making.
+
